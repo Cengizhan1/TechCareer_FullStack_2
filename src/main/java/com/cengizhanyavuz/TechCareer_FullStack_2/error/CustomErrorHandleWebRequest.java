@@ -24,10 +24,6 @@ import java.util.Map;
 @CrossOrigin(origins = FrontEnd.REACT_URL)
 public class CustomErrorHandleWebRequest implements ErrorController {
 
-    // ErrorController
-    // ErrorAttributes
-    // WebRequest
-
     private ApiResult apiResult;
     private String path;
     private String message;
