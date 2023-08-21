@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.annotations.CreationTimestamp;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -32,13 +33,9 @@ public class BlogEntity implements Serializable {
     @Column(name = "blog_id", unique = true, nullable = false, insertable = true, updatable = false)
     private Long blogId;
 
-    // HEADER
-    @Column(name = "header", length = 500, columnDefinition = "varchar(500) default 'başlık yazılmadı...'")
-    private String header;
-
-    // CONTENT
-    @Lob
-    private String content;
+    // EMBEDDABLE
+    @Embedded
+    private BlogEntityEmbeddable blogEntityEmbeddable = new BlogEntityEmbeddable();
 
     // DATE
     @CreationTimestamp
