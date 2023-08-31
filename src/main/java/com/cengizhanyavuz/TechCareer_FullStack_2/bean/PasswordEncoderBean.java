@@ -1,13 +1,16 @@
 package com.cengizhanyavuz.TechCareer_FullStack_2.bean;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class PasswordEncoderBean {
+
     @Bean
-    public BCryptPasswordEncoder passwordEncoderBeanMethod() {
+    public PasswordEncoder passwordEncoderMethod(){
         return new BCryptPasswordEncoder();
     }
 }

@@ -1,6 +1,6 @@
 package com.cengizhanyavuz.TechCareer_FullStack_2.business.dto;
 
-
+import com.cengizhanyavuz.TechCareer_FullStack_2.annotation.UniqueCategoryName;
 import com.cengizhanyavuz.TechCareer_FullStack_2.auditing.AuditingAwareBaseDto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -14,18 +14,22 @@ import java.io.Serializable;
 
 // LOMBOK
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 @Log4j2
-// Category (1) - Blog (N)
+@Builder
+// Validation
+
+// CategoryDto(1) - BlogDto(N)
 public class CategoryDto extends AuditingAwareBaseDto implements Serializable {
 
-    // Serileştirme
+    // serileştirme
     public static final Long serialVersionUID=1L;
 
-    // CATEGORY
+    // CATEGORY NAME
+    // kendi Anonotation'ı yazdım.
+    @UniqueCategoryName
     @NotEmpty(message = "{blog.category.validation.constraints.NotNull.message}")
-    @Size(min=10,message = "{blog.category.least.validation.constraints.NotNull.message}")
+    @Size(min=2,message = "{blog.category.least.validation.constraints.NotNull.message}")
     private String categoryName;
 }

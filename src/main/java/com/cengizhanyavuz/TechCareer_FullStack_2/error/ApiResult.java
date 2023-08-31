@@ -1,11 +1,10 @@
 package com.cengizhanyavuz.TechCareer_FullStack_2.error;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-
 import java.util.Date;
 import java.util.Map;
+
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -19,9 +18,11 @@ public class ApiResult {
     private int status;
     private Date systemDate;
 
+    // Parametresiz Constructor
     public ApiResult() {
     }
 
+    // Parametreli Constructor
     public ApiResult(String path, String message, int status) {
         this.path = path;
         this.message = message;

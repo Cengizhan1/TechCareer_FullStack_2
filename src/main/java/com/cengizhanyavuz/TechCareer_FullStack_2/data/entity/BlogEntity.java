@@ -1,50 +1,46 @@
 package com.cengizhanyavuz.TechCareer_FullStack_2.data.entity;
 
+import com.cengizhanyavuz.TechCareer_FullStack_2.auditing.AuditingAwareBaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.annotations.CreationTimestamp;
-
 import java.io.Serializable;
-import java.util.Date;
 
 // LOMBOK
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Log4j2
 
 // ENTITY
 @Entity
 @Table(name = "blogs")
-// Blog(N) Categories(1)
-public class BlogEntity implements Serializable {
+// Blog(N)  Category(1)
+public class BlogEntity extends AuditingAwareBaseEntity implements Serializable {
 
-    // Serileştirme
+    // serileştirme
     public static final Long serialVersionUID = 1L;
 
     // ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "blog_id", unique = true, nullable = false, insertable = true, updatable = false)
+    @Column(name="blog_id",unique = true,nullable = false,insertable = true,updatable = false)
     private Long blogId;
 
-    // EMBEDDABLE
+    // Embedded
     @Embedded
-    private BlogEntityEmbeddable blogEntityEmbeddable = new BlogEntityEmbeddable();
+    private BlogEntityEmbeddable blogEntityEmbeddable=new BlogEntityEmbeddable();
 
-    // DATE
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date systemDate;
+    //  RELATION
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name="category_id",nullable = false)
+    private CategoryEntity relationCategoryEntity;
 
-    // Database olmasın ama Javada olsun
-   /*
-   @Transient
-    private String justJava;
-    */
+    // Constructor (Parametresiz)
+    public BlogEntity() {
+    }
+
+    // Constructor (Parametreli)
+    public BlogEntity(BlogEntityEmbeddable blogEntityEmbeddable, CategoryEntity relationCategoryEntity) {
+        this.blogEntityEmbeddable = blogEntityEmbeddable;
+        this.relationCategoryEntity = relationCategoryEntity;
+    }
 }

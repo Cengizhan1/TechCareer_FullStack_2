@@ -1,7 +1,6 @@
 package com.cengizhanyavuz.TechCareer_FullStack_2.error;
 
-
-import com.cengizhanyavuz.TechCareer_FullStack_2.assist.FrontEnd;
+import com.cengizhanyavuz.TechCareer_FullStack_2.assist.FrontendUrl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
@@ -21,8 +20,12 @@ import java.util.Map;
 
 // API
 @RestController
-@CrossOrigin(origins = FrontEnd.REACT_URL)
+@CrossOrigin(origins = FrontendUrl.REACT_URL)
 public class CustomErrorHandleWebRequest implements ErrorController {
+
+    // ErrorController
+    // ErrorAttributes
+    // WebRequest
 
     private ApiResult apiResult;
     private String path;
@@ -30,10 +33,28 @@ public class CustomErrorHandleWebRequest implements ErrorController {
     private int status;
     private Map<String,String> validationErrors;
 
+    /*
+    1.YOL (Field Injection)
+    @Autowired
+    private ErrorAttributes errorAttributes;
+    */
+
+    /*
+    2.YOL (Constructor Injection)
+    private final ErrorAttributes errorAttributes;
+    @Autowired
+    public CustomErrorHandleWebRequest(ErrorAttributes errorAttributes) {
+        this.errorAttributes = errorAttributes;
+    }
+    */
+
+    //3.YOL (Constructor Lombok Injection)
     private final ErrorAttributes errorAttributes;
 
+    // http://localhost:4444/error
     @RequestMapping("/error")
     public ApiResult springMyHandleErrorMethod(WebRequest webRequest){
+        //Spring >=2.3
         Map<String,Object> attributes=errorAttributes.getErrorAttributes(
                 webRequest,
                 ErrorAttributeOptions.of(
@@ -42,14 +63,19 @@ public class CustomErrorHandleWebRequest implements ErrorController {
                 )
         ); //end attributes
 
+        // Spring'ten gelen verileri almak
         status= (int) attributes.get("status");
         message= (String) attributes.get("message");
         path= (String) attributes.get("path");
+        // public ApiResult(String path, String message, int status) {}
         apiResult=new ApiResult(path,message,status);
 
+        // Eğer Spring'ten gelen bir hata varsa ise
         if(attributes.containsKey("errors")){
             List<FieldError> fieldErrorList= (List<FieldError>) attributes.get("errors");
+            // HashMap oluştur
             validationErrors=new HashMap<>();
+            // bütün hataları for each döngüsünde kullan
             for(FieldError temp :fieldErrorList){
                 validationErrors.put(temp.getField(),temp.getDefaultMessage());
             }
@@ -57,4 +83,4 @@ public class CustomErrorHandleWebRequest implements ErrorController {
         }
         return apiResult;
     }  // end  springMyHandleErrorMethod
-} // end class
+}

@@ -13,14 +13,29 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>TechCareer_FullStack_2</name>
 	<description>Spring Boot , react</description>
+
+	<!--properties-->
 	<properties>
+		<encoding>UTF-8</encoding>
 		<java.version>17</java.version>
+
+		<!--for maven-->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+
+		<!--Version-->
+		<modelmapper.version>2.4.4</modelmapper.version>
+		<swagger.version>2.0.0</swagger.version>
+		<gson.version>2.8.6</gson.version>
+		<!--<swagger.fox.version>3.0.0</swagger.fox.version>-->
 	</properties>
+
 	<!--dependencies-->
 	<dependencies>
 		<!-- COMPONENT -->
 
-		<!-- DOCKER-->
 		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-docker-compose</artifactId>
@@ -29,12 +44,12 @@
 		</dependency>-->
 
 		<!-- MAİL-->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>-->
+		</dependency>
 
-		<!--Spring Web/API Mvc Rest-->
+		<!--Spring Web Mvc Rest-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -63,14 +78,14 @@
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
-			<version>3.1.0</version>
+			<version>${modelmapper.version}</version>
 		</dependency>
 
 		<!-- swagger open-api-3.0-->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.0.2</version>
+			<version>${swagger.version}</version>
 		</dependency>
 
 		<!-- Spring data-jpa-->
@@ -102,11 +117,11 @@
 		</dependency>
 
 		<!--postgresql-->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
-		</dependency>-->
+		</dependency>
 
 		<!--Mongo DB Kalıcı veri-->
 		<!--<dependency>
@@ -262,8 +277,26 @@
 	</dependencies>
 
 
+
 	<build>
 		<plugins>
+			<!-- for maven -->
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.2</version>
+			</plugin>-->
+
+			<!-- for maven target 17 -->
+			<!--	<plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>17</source>
+                        <target>17</target>
+                    </configuration>
+                </plugin>-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

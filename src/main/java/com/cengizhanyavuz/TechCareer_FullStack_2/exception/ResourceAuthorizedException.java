@@ -3,9 +3,11 @@ package com.cengizhanyavuz.TechCareer_FullStack_2.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class BadRequestException extends RuntimeException{
-    public BadRequestException(String message) {
+// 401: yetkisiz giriş
+@ResponseStatus(value=HttpStatus.UNAUTHORIZED)
+public class ResourceAuthorizedException extends RuntimeException{
+
+    public ResourceAuthorizedException(String message) {
         super(message);
     }
 }
